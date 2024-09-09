@@ -15,7 +15,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     lazy private var imageView: UIImageView? = {
-        return UIImageView.init(image: self.imageModel.getImageWithName(displayImageName))
+        return UIImageView(image: self.imageModel.getImageWithName(displayImageName))
     }()
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -26,21 +26,15 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        if let size = self.imageView?.image?.size{
+        if let size = self.imageView?.image?.size {
             self.scrollView.addSubview(self.imageView!)
             self.scrollView.contentSize = size
             self.scrollView.minimumZoomScale = 0.1
             self.scrollView.delegate = self
         }
-        
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
-    
-    
-
-
 }
-

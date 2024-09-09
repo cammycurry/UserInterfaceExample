@@ -12,46 +12,39 @@ class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
     }
     
-    lazy var imageModel:ImageModel = {
+    lazy var imageModel: ImageModel = {
         return ImageModel.sharedInstance()
     }()
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return self.imageModel.imageNames.count
+            return self.imageModel.numberOfImages()
         }
-        
         return 1
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ImageNameCell", for: indexPath)
             
             // Configure the cell...
-            if let name = self.imageModel.imageNames[indexPath.row] as? String {
-                cell.textLabel!.text = name
-            }
+            let name = self.imageModel.getImageName(for: indexPath.row)
+            cell.textLabel?.text = name
             
             return cell
-        }else{
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath)
             
             // Configure the cell...
-            cell.textLabel?.text = "All Image"
+            cell.textLabel?.text = "All Images"
             cell.detailTextLabel?.text = "Summary"
             
             return cell
@@ -71,6 +64,4 @@ class TableViewController: UITableViewController {
                 vc.displayImageName = name
         }
     }
-    
-
 }
